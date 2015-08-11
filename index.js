@@ -79,7 +79,10 @@ SnmpGet.prototype.getInfo = function getInfo(host, key) {
     if (error) {
       console.error('ERROR', host, key, error);
     } else {
-      me.hosts[host][key] = parseValue(stdout);
+      if (!me.hosts[host][key]) {
+        me.hosts[host][key] = {};
+      }
+      me.hosts[host][key].value = parseValue(stdout);
     }
   });
 };
