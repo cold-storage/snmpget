@@ -23,7 +23,7 @@ var exec = require('child_process').exec;
 //       max: 5351576
 //     dskPercent.1:
 //
-// snmpGetter.info contains whatever info we have gotten so far.
+// snmpGetter.hosts contains whatever host info we have gotten so far.
 // looks like this.
 //
 // {
@@ -44,7 +44,6 @@ var exec = require('child_process').exec;
 function SnmpGet(hosts, interval) {
   this.hosts = hosts || {};
   this.interval = (interval || 5000);
-  this.info = {};
   this.getHostsInfos();
   this.intervalID = setInterval(this.getHostsInfos.bind(this), this.interval);
 }
@@ -80,10 +79,7 @@ SnmpGet.prototype.getInfo = function getInfo(host, key) {
     if (error) {
       console.error('ERROR', host, key, error);
     } else {
-      if (!me.info[host]) {
-        me.info[host] = {};
-      }
-      me.info[host][key] = parseValue(stdout);
+      me.hosts[host][key] = parseValue(stdout);
     }
   });
 };
@@ -125,7 +121,7 @@ if (require.main === module) {
   }, 3000);
 
   setTimeout(function() {
-    console.log('info', JSON.stringify(gtr.info, null, 2));
+    console.log('hosts', JSON.stringify(gtr.hosts, null, 2));
     gtr.stop();
   }, 5000);
 }
