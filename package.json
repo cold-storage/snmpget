@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:jstein/docker-node-snmp.git"
+    "url": "git@github.com:johndstein/snmpget.git"
   },
   "author": "John Stein <john@johnandkerri.com>",
   "license": "ISC",
